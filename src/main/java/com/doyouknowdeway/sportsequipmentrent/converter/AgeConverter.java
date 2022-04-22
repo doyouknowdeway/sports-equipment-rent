@@ -1,0 +1,21 @@
+package com.doyouknowdeway.sportsequipmentrent.converter;
+
+import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Age;
+
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
+
+@Converter(autoApply = true)
+public class AgeConverter implements AttributeConverter<Age, Integer> {
+
+    @Override
+    public Integer convertToDatabaseColumn(Age attribute) {
+        return attribute == null ? null : attribute.getId();
+    }
+
+    @Override
+    public Age convertToEntityAttribute(Integer dbData) {
+        return Age.of(dbData).orElse(null);
+    }
+
+}

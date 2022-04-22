@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - preConditions:
+      - dbms:
+          type: postgresql
+  - changeSet:
+      id: PSER-001-202203071149
+      author: EkaterinaSelivanova
+      comment: Create Initial DB Structure
+      changes:
+        - sqlFile:
+            path: PSER-001-202203071149.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: PSER-001-202203131254
+      author: EkaterinaSelivanova
+      comment: Insert Data
+      changes:
+        - sqlFile:
+            path: PSER-001-202203131254.sql
+            relativeToChangelogFile: true
