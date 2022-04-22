@@ -9,12 +9,12 @@ import javax.persistence.Converter;
 public class OrderStatusConverter implements AttributeConverter<OrderStatus, Integer> {
 
     @Override
-    public Integer convertToDatabaseColumn(OrderStatus attribute) {
+    public Integer convertToDatabaseColumn(final OrderStatus attribute) {
         return attribute == null ? null : attribute.getId();
     }
 
     @Override
-    public OrderStatus convertToEntityAttribute(Integer dbData) {
+    public OrderStatus convertToEntityAttribute(final Integer dbData) {
         return OrderStatus.of(dbData).orElse(null);
     }
 

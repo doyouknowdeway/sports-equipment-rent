@@ -14,16 +14,16 @@ public enum OrderStatus {
 
     private final int id;
 
-    OrderStatus(int id) {
+    OrderStatus(final int id) {
         this.id = id;
     }
 
-    public static Optional<OrderStatus> of(Integer id) {
+    public static Optional<OrderStatus> of(final Integer id) {
         if (id == null) {
             return Optional.empty();
         }
 
-        for (var value: OrderStatus.values()) {
+        for (final var value: OrderStatus.values()) {
             if (value.id == id) {
                 return Optional.of(value);
             }

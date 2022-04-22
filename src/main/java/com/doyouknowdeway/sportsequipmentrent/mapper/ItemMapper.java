@@ -13,8 +13,6 @@ public interface ItemMapper {
 
     ItemDto fromEntity(ItemEntity entity);
 
-    ItemEntity toEntity(ItemDto dto);
-
     ItemEntity toEntity(ItemCreateDto dto);
 
     void merge(@MappingTarget ItemEntity entity, ItemCreateDto dto);

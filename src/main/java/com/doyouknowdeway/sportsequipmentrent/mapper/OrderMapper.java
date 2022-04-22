@@ -14,12 +14,10 @@ public interface OrderMapper {
 
     OrderDto fromEntity(OrderEntity entity);
 
-    OrderEntity toEntity(OrderDto dto);
-
     @Mapping(target = "profile.id", source = "profileId")
     OrderEntity toEntity(OrderCreateDto dto);
 
-    void merge(OrderCreateDto dto, @MappingTarget OrderEntity entity);
+    void merge(@MappingTarget OrderEntity entity, OrderCreateDto dto);
 
     List<OrderDto> fromEntities(Iterable<OrderEntity> entities);
 

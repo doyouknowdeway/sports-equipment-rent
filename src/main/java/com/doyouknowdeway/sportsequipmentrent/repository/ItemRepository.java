@@ -20,7 +20,7 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Integer>, JpaS
     @Override
     List<ItemEntity> findAll(Specification<ItemEntity> specification);
 
-    static Specification<ItemEntity> hasItemName(String itemName) {
+    static Specification<ItemEntity> hasItemName(final String itemName) {
         return (root, query, criteriaBuilder) -> {
             final Predicate itemNamePredicate = Strings.isBlank(itemName) ? null :
                     criteriaBuilder.like(root.get("name"), "%" + itemName + "%");
@@ -33,7 +33,7 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Integer>, JpaS
         };
     }
 
-    static Specification<ItemEntity> hasSeasonAndAge(String season, String age) {
+    static Specification<ItemEntity> hasSeasonAndAge(final String season, final String age) {
         return (root, query, criteriaBuilder) -> {
             final Predicate seasonPredicate = Strings.isBlank(season) ? null :
                     criteriaBuilder.equal(root.get("season"), Season.valueOf(season));

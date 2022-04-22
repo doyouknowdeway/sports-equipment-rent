@@ -9,12 +9,12 @@ import javax.persistence.Converter;
 public class AgeConverter implements AttributeConverter<Age, Integer> {
 
     @Override
-    public Integer convertToDatabaseColumn(Age attribute) {
+    public Integer convertToDatabaseColumn(final Age attribute) {
         return attribute == null ? null : attribute.getId();
     }
 
     @Override
-    public Age convertToEntityAttribute(Integer dbData) {
+    public Age convertToEntityAttribute(final Integer dbData) {
         return Age.of(dbData).orElse(null);
     }
 

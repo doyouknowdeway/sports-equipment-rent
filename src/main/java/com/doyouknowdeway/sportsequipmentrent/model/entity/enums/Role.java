@@ -1,24 +1,26 @@
 package com.doyouknowdeway.sportsequipmentrent.model.entity.enums;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import java.util.Optional;
 
-public enum Role {
+public enum Role implements GrantedAuthority {
 
     ADMIN(1),
     USER(2);
 
     private final int id;
 
-    Role(int id) {
+    Role(final int id) {
         this.id = id;
     }
 
-    public static Optional<Role> of(Integer id) {
+    public static Optional<Role> of(final Integer id) {
         if (id == null) {
             return Optional.empty();
         }
 
-        for (var value: Role.values()) {
+        for (final var value : Role.values()) {
             if (value.id == id) {
                 return Optional.of(value);
             }
@@ -29,6 +31,11 @@ public enum Role {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String getAuthority() {
+        return "ROLE_" + this.name().toUpperCase();
     }
 
 }

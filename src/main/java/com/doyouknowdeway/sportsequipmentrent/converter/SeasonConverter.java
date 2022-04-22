@@ -9,12 +9,12 @@ import javax.persistence.Converter;
 public class SeasonConverter implements AttributeConverter<Season, Integer> {
 
     @Override
-    public Integer convertToDatabaseColumn(Season attribute) {
+    public Integer convertToDatabaseColumn(final Season attribute) {
         return attribute == null ? null : attribute.getId();
     }
 
     @Override
-    public Season convertToEntityAttribute(Integer dbData) {
+    public Season convertToEntityAttribute(final Integer dbData) {
         return Season.of(dbData).orElse(null);
     }
 

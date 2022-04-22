@@ -9,16 +9,16 @@ public enum Season {
 
     private final int id;
 
-    Season(int id) {
+    Season(final int id) {
         this.id = id;
     }
 
-    public static Optional<Season> of(Integer id) {
+    public static Optional<Season> of(final Integer id) {
         if (id == null) {
             return Optional.empty();
         }
 
-        for (var value: Season.values()) {
+        for (final var value: Season.values()) {
             if (value.id == id) {
                 return Optional.of(value);
             }

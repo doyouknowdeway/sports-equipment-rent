@@ -22,10 +22,10 @@ public class OrderServiceImpl implements OrderService {
     private final OrderItemMapper orderItemMapper;
 
     @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository,
-                            OrderMapper orderMapper,
-                            OrderItemRepository orderItemRepository,
-                            OrderItemMapper orderItemMapper) {
+    public OrderServiceImpl(final OrderRepository orderRepository,
+                            final OrderMapper orderMapper,
+                            final OrderItemRepository orderItemRepository,
+                            final OrderItemMapper orderItemMapper) {
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
         this.orderItemRepository = orderItemRepository;
@@ -33,24 +33,24 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public OrderDto createOrder(OrderCreateDto orderDto) {
+    public OrderDto createOrder(final OrderCreateDto orderDto) {
         return orderMapper.fromEntity(orderRepository.save(orderMapper.toEntity(orderDto)));
     }
 
     @Override
-    public void updateOrder(OrderCreateDto orderDto, int orderId) {
-        OrderEntity orderEntity = orderRepository.getById(orderId);
-        orderMapper.merge(orderDto, orderEntity);
+    public void updateOrder(final OrderCreateDto orderDto, final int orderId) {
+        final OrderEntity orderEntity = orderRepository.getById(orderId);
+        orderMapper.merge(orderEntity, orderDto);
         orderRepository.save(orderEntity);
     }
 
     @Override
-    public OrderDto getOrderById(int orderId) {
+    public OrderDto getOrderById(final int orderId) {
         return orderMapper.fromEntity(orderRepository.findById(orderId).orElseThrow());
     }
 
     @Override
-    public void deleteOrderById(int orderId) {
+    public void deleteOrderById(final int orderId) {
         orderRepository.deleteById(orderId);
     }
 
@@ -60,8 +60,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void addItemToOrder(int orderId, int itemId) {
-        OrderItemDto dto = new OrderItemDto();
+    public void addItemToOrder(final int orderId, final int itemId) {
+        final OrderItemDto dto = new OrderItemDto();
         dto.setOrderId(orderId);
         dto.setItemId(itemId);
 
