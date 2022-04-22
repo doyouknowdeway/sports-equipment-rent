@@ -24,7 +24,7 @@ public class ProfileController {
         return service.createProfile(profileDto);
     }
 
-    @PutMapping("/update/{profileId}")
+    @PutMapping("/{profileId}")
     public void updateProfile(@RequestBody ProfileCreateDto profileDto, @PathVariable int profileId) {
         service.updateProfile(profileDto, profileId);
     }
@@ -34,7 +34,7 @@ public class ProfileController {
         return service.getProfileById(profileId);
     }
 
-    @DeleteMapping("/delete/{profileId}")
+    @DeleteMapping("/{profileId}")
     public void deleteProfileById(@PathVariable int profileId) {
         service.deleteProfileById(profileId);
     }

@@ -34,4 +34,7 @@ public class ItemEntity {
     @Column(name = "season_id")
     private Season season;
 
+    @Column(name = "count")
+    private Integer count;
+
 }

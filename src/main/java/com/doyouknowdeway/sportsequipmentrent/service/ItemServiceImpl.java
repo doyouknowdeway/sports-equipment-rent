@@ -2,6 +2,7 @@ package com.doyouknowdeway.sportsequipmentrent.service;
 
 import com.doyouknowdeway.sportsequipmentrent.mapper.ItemMapper;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.ItemDto;
+import com.doyouknowdeway.sportsequipmentrent.model.dto.create_dto.ItemCreateDto;
 import com.doyouknowdeway.sportsequipmentrent.model.entity.ItemEntity;
 import com.doyouknowdeway.sportsequipmentrent.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +23,16 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public ItemDto createItem(ItemDto itemDto) {
-        itemRepository.save(itemMapper.toEntity(itemDto));
-        return itemDto;
+    public ItemDto createItem(ItemCreateDto itemDto) {
+        ItemEntity itemEntity = itemMapper.toEntity(itemDto);
+        itemEntity.setCount(0);
+        return itemMapper.fromEntity(itemRepository.save(itemEntity));
     }
 
     @Override
-    public void updateItem(ItemDto itemDto, int itemId) {
+    public void updateItem(ItemCreateDto itemDto, int itemId) {
         ItemEntity itemEntity = itemRepository.getById(itemId);
-        itemMapper.merge(itemDto, itemEntity);
+        itemMapper.merge(itemEntity, itemDto);
         itemRepository.save(itemEntity);
     }
 

@@ -24,7 +24,7 @@ public class OrderController {
         return service.createOrder(orderDto);
     }
 
-    @PutMapping("/update/{orderId}")
+    @PutMapping("/{orderId}")
     public void updateOrder(@RequestBody OrderCreateDto orderDto, @PathVariable int orderId) {
         service.updateOrder(orderDto, orderId);
     }
@@ -34,7 +34,7 @@ public class OrderController {
         return service.getOrderById(orderId);
     }
 
-    @DeleteMapping("/delete/{orderId}")
+    @DeleteMapping("/{orderId}")
     public void deleteOrderById(@PathVariable int orderId) {
         service.deleteOrderById(orderId);
     }
@@ -44,7 +44,7 @@ public class OrderController {
         return service.getAllOrders();
     }
 
-    @GetMapping("/{orderId}/items/{itemId}")
+    @PostMapping("/{orderId}/items/{itemId}")
     public void addItemToOrder(@PathVariable int orderId, @PathVariable int itemId) {
         service.addItemToOrder(orderId, itemId);
     }

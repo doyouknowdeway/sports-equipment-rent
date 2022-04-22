@@ -1,4 +1,4 @@
-package com.doyouknowdeway.sportsequipmentrent.model.dto;
+package com.doyouknowdeway.sportsequipmentrent.model.dto.create_dto;
 
 import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Age;
 import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Season;
@@ -8,9 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ItemDto {
-
-    private Integer id;
+public class ItemCreateDto {
 
     private String name;
 

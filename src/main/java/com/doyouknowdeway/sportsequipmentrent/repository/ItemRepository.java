@@ -1,6 +1,8 @@
 package com.doyouknowdeway.sportsequipmentrent.repository;
 
 import com.doyouknowdeway.sportsequipmentrent.model.entity.ItemEntity;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Age;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Season;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,9 +36,9 @@ public interface ItemRepository extends JpaRepository<ItemEntity, Integer>, JpaS
     static Specification<ItemEntity> hasSeasonAndAge(String season, String age) {
         return (root, query, criteriaBuilder) -> {
             final Predicate seasonPredicate = Strings.isBlank(season) ? null :
-                    criteriaBuilder.like(root.get("season"), "%" + season + "%");
+                    criteriaBuilder.equal(root.get("season"), Season.valueOf(season));
             final Predicate agePredicate = Strings.isBlank(age) ? null :
-                    criteriaBuilder.like(root.get("age"), "%" + age + "%");
+                    criteriaBuilder.equal(root.get("age"), Age.valueOf(age));
 
             final Predicate[] objects = Stream.of(seasonPredicate, agePredicate)
                     .filter(Objects::nonNull)

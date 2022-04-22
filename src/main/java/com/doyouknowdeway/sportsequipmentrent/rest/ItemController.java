@@ -1,6 +1,7 @@
 package com.doyouknowdeway.sportsequipmentrent.rest;
 
 import com.doyouknowdeway.sportsequipmentrent.model.dto.ItemDto;
+import com.doyouknowdeway.sportsequipmentrent.model.dto.create_dto.ItemCreateDto;
 import com.doyouknowdeway.sportsequipmentrent.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,12 @@ public class ItemController {
     }
 
     @PostMapping("/create")
-    public ItemDto createItem(@RequestBody ItemDto itemDto) {
+    public ItemDto createItem(@RequestBody ItemCreateDto itemDto) {
         return service.createItem(itemDto);
     }
 
-    @PutMapping("/update/{itemId}")
-    public void updateItem(@RequestBody ItemDto itemDto, @PathVariable int itemId) {
+    @PutMapping("/{itemId}")
+    public void updateItem(@RequestBody ItemCreateDto itemDto, @PathVariable int itemId) {
         service.updateItem(itemDto, itemId);
     }
 
@@ -33,7 +34,7 @@ public class ItemController {
         return service.getItemById(itemId);
     }
 
-    @DeleteMapping("/delete/{itemId}")
+    @DeleteMapping("/{itemId}")
     public void deleteItemById(@PathVariable int itemId) {
         service.deleteItemById(itemId);
     }
@@ -44,8 +45,8 @@ public class ItemController {
     }
 
     @GetMapping("/filtered")
-    public List<ItemDto> getAllItemsBySeasonAndAge(@RequestParam("season") String season,
-                                                   @RequestParam("age") String age) {
+    public List<ItemDto> getAllItemsBySeasonAndAge(@RequestParam(value = "season", required = false) String season,
+                                                   @RequestParam(value = "age", required = false) String age) {
         return service.listItems(season, age);
     }
 

@@ -1,14 +1,15 @@
 package com.doyouknowdeway.sportsequipmentrent.service;
 
 import com.doyouknowdeway.sportsequipmentrent.model.dto.ItemDto;
+import com.doyouknowdeway.sportsequipmentrent.model.dto.create_dto.ItemCreateDto;
 
 import java.util.List;
 
 public interface ItemService {
 
-    ItemDto createItem(ItemDto itemDto);
+    ItemDto createItem(ItemCreateDto itemDto);
 
-    void updateItem(ItemDto itemDto, int itemId);
+    void updateItem(ItemCreateDto itemDto, int itemId);
 
     ItemDto getItemById(int itemId);
 

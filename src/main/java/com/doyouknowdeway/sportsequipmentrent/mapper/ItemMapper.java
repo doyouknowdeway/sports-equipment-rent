@@ -1,7 +1,8 @@
 package com.doyouknowdeway.sportsequipmentrent.mapper;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.ItemEntity;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.ItemDto;
+import com.doyouknowdeway.sportsequipmentrent.model.dto.create_dto.ItemCreateDto;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.ItemEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -14,7 +15,9 @@ public interface ItemMapper {
 
     ItemEntity toEntity(ItemDto dto);
 
-    void merge(ItemDto dto, @MappingTarget ItemEntity entity);
+    ItemEntity toEntity(ItemCreateDto dto);
+
+    void merge(@MappingTarget ItemEntity entity, ItemCreateDto dto);
 
     List<ItemDto> fromEntities(Iterable<ItemEntity> entities);
 
