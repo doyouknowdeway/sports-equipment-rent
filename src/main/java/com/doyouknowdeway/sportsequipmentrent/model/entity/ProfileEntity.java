@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "profiles", schema = "sportsequipmentrent")
 @Entity(name = "profiles")
-public class ProfileEntity extends UserEntity{
+public class ProfileEntity extends UserEntity {
 
     @Column(name = "first_name")
     private String firstName;
