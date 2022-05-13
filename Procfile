@@ -1,0 +1,1 @@
+web: java -jar target/sports-equipment-rent-1.0-SNAPSHOT.jar
