@@ -31,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void updateItem(final ItemCreateDto itemDto, final int itemId) {
-        final ItemEntity itemEntity = itemRepository.getById(itemId);
+        final ItemEntity itemEntity = itemRepository.getOne(itemId);
         itemMapper.merge(itemEntity, itemDto);
         itemRepository.save(itemEntity);
     }

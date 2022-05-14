@@ -39,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void updateOrder(final OrderCreateDto orderDto, final int orderId) {
-        final OrderEntity orderEntity = orderRepository.getById(orderId);
+        final OrderEntity orderEntity = orderRepository.getOne(orderId);
         orderMapper.merge(orderEntity, orderDto);
         orderRepository.save(orderEntity);
     }

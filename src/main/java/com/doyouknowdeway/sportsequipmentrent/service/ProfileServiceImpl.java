@@ -45,7 +45,7 @@ public class ProfileServiceImpl implements ProfileService {
 
     @Override
     public void updateProfile(final ProfileCreateDto profileDto, final int profileId) {
-        final ProfileEntity profileEntity = profileRepository.getById(profileId);
+        final ProfileEntity profileEntity = profileRepository.getOne(profileId);
         profileMapper.merge(profileEntity, profileDto);
         profileRepository.save(profileEntity);
     }
