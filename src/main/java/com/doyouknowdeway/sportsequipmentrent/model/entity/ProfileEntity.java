@@ -3,13 +3,15 @@ package com.doyouknowdeway.sportsequipmentrent.model.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Getter
 @Setter
 @Table(name = "profiles", schema = "sportsequipmentrent")
 @Entity(name = "profiles")
-public class ProfileEntity extends UserEntity{
+public class ProfileEntity extends UserEntity {
 
     @Column(name = "first_name")
     private String firstName;

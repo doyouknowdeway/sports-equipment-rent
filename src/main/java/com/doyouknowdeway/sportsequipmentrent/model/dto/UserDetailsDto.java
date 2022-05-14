@@ -18,7 +18,7 @@ import java.util.List;
 public class UserDetailsDto implements UserDetails {
 
     private final Integer id;
-    private final String email;
+    private final String login;
     private final List<Role> roles;
     private final String password;
 
@@ -29,7 +29,7 @@ public class UserDetailsDto implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return login;
     }
 
     @Override

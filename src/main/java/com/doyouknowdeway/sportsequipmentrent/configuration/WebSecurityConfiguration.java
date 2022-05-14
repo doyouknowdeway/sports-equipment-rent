@@ -1,5 +1,6 @@
 package com.doyouknowdeway.sportsequipmentrent.configuration;
 
+import com.doyouknowdeway.sportsequipmentrent.filter.JwtTokenFilter;
 import com.doyouknowdeway.sportsequipmentrent.mapper.ProfileMapper;
 import com.doyouknowdeway.sportsequipmentrent.repository.ProfileRepository;
 import com.doyouknowdeway.sportsequipmentrent.service.UserDetailsServiceImpl;
@@ -15,17 +16,24 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.http.HttpServletResponse;
+
+import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    private final JwtTokenFilter jwtTokenFilter;
     private final ProfileRepository profileRepository;
     private final ProfileMapper profileMapper;
 
     @Autowired
-    public WebSecurityConfiguration(final ProfileRepository profileRepository, final ProfileMapper profileMapper) {
+    public WebSecurityConfiguration(final JwtTokenFilter jwtTokenFilter, final ProfileRepository profileRepository,
+                                    final ProfileMapper profileMapper) {
+        this.jwtTokenFilter = jwtTokenFilter;
         this.profileRepository = profileRepository;
         this.profileMapper = profileMapper;
     }
@@ -54,17 +62,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
+                .cors()
+                .and()
                 .csrf()
                 .disable()
-                .formLogin()
-                .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error")
-                .permitAll()
-
-                .and()
                 .authorizeRequests()
-                .antMatchers("/", "/register")
-                .permitAll()
+                .antMatchers("/login", "/newAccessToken", "/register").permitAll()
 
                 .antMatchers("/items", "/items/filtered").not().authenticated()
                 .antMatchers("/items/**").hasRole("ADMIN")
@@ -78,11 +81,17 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().not().authenticated()
 
                 .and()
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .permitAll()
-                .logoutSuccessUrl("/")
-                .deleteCookies("JSESSIONID");
+                .exceptionHandling()
+                .authenticationEntryPoint(
+                        (request, response, authException) -> response.sendError(
+                                HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized"))
+
+                .and()
+                .sessionManagement(sm -> sm.sessionCreationPolicy(STATELESS))
+                .addFilterAfter(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+
+                .headers()
+                .cacheControl();
     }
 
 }

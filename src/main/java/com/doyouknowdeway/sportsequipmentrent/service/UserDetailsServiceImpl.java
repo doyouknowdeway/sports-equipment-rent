@@ -21,9 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
-        return profileMapper.profileEntityToUserDetailsDto(profileRepository.findByEmail(email).orElseThrow(
-                () -> new UsernameNotFoundException("No such user in the database!")));
+    public UserDetails loadUserByUsername(final String login) throws UsernameNotFoundException {
+        return profileMapper.profileEntityToUserDetailsDto(profileRepository.findByLogin(login).orElseThrow(
+                () -> new UsernameNotFoundException("No such user in the database!!!")));
     }
 
 }

@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ProfileRepository extends JpaRepository<ProfileEntity, Integer>, JpaSpecificationExecutor<ProfileEntity> {
 
-    Optional<ProfileEntity> findByEmail(String email);
+    Optional<ProfileEntity> findByLogin(String login);
 
 }

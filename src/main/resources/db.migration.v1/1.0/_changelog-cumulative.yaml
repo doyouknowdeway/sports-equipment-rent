@@ -18,3 +18,11 @@ databaseChangeLog:
         - sqlFile:
             path: PSER-001-202203131254.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: PSER-001-202204291730
+      author: EkaterinaSelivanova
+      comment: Create Jwt Token Table
+      changes:
+        - sqlFile:
+            path: PSER-001-202204291730.sql
+            relativeToChangelogFile: true
