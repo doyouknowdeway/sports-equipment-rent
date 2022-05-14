@@ -209,7 +209,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>SportsEquipmentRentApplication</mainClass>
+                            <mainClass>com.doyouknowdeway.sportsequipmentrent.SportsEquipmentRentApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
