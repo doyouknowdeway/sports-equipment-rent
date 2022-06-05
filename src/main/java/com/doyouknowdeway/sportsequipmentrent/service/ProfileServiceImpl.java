@@ -9,6 +9,8 @@ import com.doyouknowdeway.sportsequipmentrent.model.dto.ProfileDto;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.UserDetailsDto;
 import com.doyouknowdeway.sportsequipmentrent.model.entity.OrderEntity;
 import com.doyouknowdeway.sportsequipmentrent.model.entity.ProfileEntity;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Provider;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Role;
 import com.doyouknowdeway.sportsequipmentrent.repository.OrderRepository;
 import com.doyouknowdeway.sportsequipmentrent.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +28,7 @@ import java.util.Optional;
 public class ProfileServiceImpl implements ProfileService {
 
     private final PasswordEncoder passwordEncoder;
+    private final AuthService authService;
     private final ProfileRepository profileRepository;
     private final ProfileMapper profileMapper;
     private final OrderRepository orderRepository;
@@ -34,7 +38,10 @@ public class ProfileServiceImpl implements ProfileService {
     public ProfileDto createProfile(final ProfileCreateDto profileDto) {
         final String password = passwordEncoder.encode(profileDto.getPassword());
         final ProfileEntity profileEntity = profileMapper.profileCreateDtoToProfileEntity(profileDto);
+        profileEntity.setRole(Role.USER);
         profileEntity.setPassword(password);
+        profileEntity.setProvider(Provider.LOCAL);
+        profileEntity.setRegistrationDatetime(Instant.now());
         final ProfileDto profileDtoResult = profileMapper.profileEntityToProfileDto(profileRepository.save(profileEntity));
         log.info("Profile with id = {} has been created.", profileDtoResult.getId());
         return profileDtoResult;

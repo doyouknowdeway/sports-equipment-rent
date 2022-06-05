@@ -11,7 +11,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonDeserialize(builder = ProfileCreateDto.ProfileCreateDtoBuilder.class)
-public class ProfileCreateDto extends UserCreateDto {
+public class ProfileCreateDto {
 
     @JsonProperty("first_name")
     private String firstName;
