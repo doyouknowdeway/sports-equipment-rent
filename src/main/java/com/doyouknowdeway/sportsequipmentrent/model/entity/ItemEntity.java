@@ -35,4 +35,7 @@ public class ItemEntity {
     @Column(name = "count")
     private Integer count;
 
+    @Column(name = "image")
+    private byte[] image;
+
 }

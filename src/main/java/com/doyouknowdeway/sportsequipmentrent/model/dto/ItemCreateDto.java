@@ -21,4 +21,7 @@ public class ItemCreateDto {
 
     private Season season;
 
+    @JsonProperty("base64_string_image")
+    private String base64StringImage;
+
 }
