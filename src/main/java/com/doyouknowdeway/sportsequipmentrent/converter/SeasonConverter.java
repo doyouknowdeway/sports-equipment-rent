@@ -1,6 +1,6 @@
 package com.doyouknowdeway.sportsequipmentrent.converter;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Season;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Season;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

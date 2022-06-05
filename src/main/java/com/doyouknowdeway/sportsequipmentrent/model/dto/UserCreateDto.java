@@ -1,6 +1,6 @@
-package com.doyouknowdeway.sportsequipmentrent.model.dto.create_dto;
+package com.doyouknowdeway.sportsequipmentrent.model.dto;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Role;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;

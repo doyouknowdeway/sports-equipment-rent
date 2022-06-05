@@ -1,4 +1,4 @@
-package com.doyouknowdeway.sportsequipmentrent.model.entity.enums;
+package com.doyouknowdeway.sportsequipmentrent.model.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 

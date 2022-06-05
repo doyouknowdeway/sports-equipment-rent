@@ -16,9 +16,7 @@ public class SwaggerConfiguration {
 //    http://localhost:8080/swagger-ui/
 //    http://localhost:8080/swagger-ui/index.html
 //    http://localhost:8080/v2/api-docs
-
-//    Useful links:
-//    https://stackoverflow.com/questions/50618350/swagger-with-spring-boot-2-0-leads-to-404-error-page
+//    host: sport-equipment-rent.herokuapp.com
 
     @Bean
     public Docket api() {

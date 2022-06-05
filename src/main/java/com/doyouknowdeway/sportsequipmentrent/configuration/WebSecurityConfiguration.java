@@ -4,7 +4,7 @@ import com.doyouknowdeway.sportsequipmentrent.filter.JwtTokenFilter;
 import com.doyouknowdeway.sportsequipmentrent.mapper.ProfileMapper;
 import com.doyouknowdeway.sportsequipmentrent.repository.ProfileRepository;
 import com.doyouknowdeway.sportsequipmentrent.service.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -29,14 +30,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final JwtTokenFilter jwtTokenFilter;
     private final ProfileRepository profileRepository;
     private final ProfileMapper profileMapper;
-
-    @Autowired
-    public WebSecurityConfiguration(final JwtTokenFilter jwtTokenFilter, final ProfileRepository profileRepository,
-                                    final ProfileMapper profileMapper) {
-        this.jwtTokenFilter = jwtTokenFilter;
-        this.profileRepository = profileRepository;
-        this.profileMapper = profileMapper;
-    }
 
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
@@ -62,12 +55,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .cors()
-                .and()
-                .csrf()
-                .disable()
+                .cors().and().csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/newAccessToken", "/register").permitAll()
+                .antMatchers("/login", "/oauth/**", "/register").permitAll()
 
                 .antMatchers("/items", "/items/filtered").not().authenticated()
                 .antMatchers("/items/**").hasRole("ADMIN")
@@ -92,6 +82,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .headers()
                 .cacheControl();
+
     }
 
 }

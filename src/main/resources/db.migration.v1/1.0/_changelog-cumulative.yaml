@@ -26,3 +26,19 @@ databaseChangeLog:
         - sqlFile:
             path: PSER-001-202204291730.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: PSER-001-202205151545
+      author: EkaterinaSelivanova
+      comment: Alter User And Profile Tables
+      changes:
+        - sqlFile:
+            path: PSER-001-202205151545.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: PSER-001-202205151615
+      author: EkaterinaSelivanova
+      comment: Alter User And Profile Tables
+      changes:
+        - sqlFile:
+            path: PSER-001-202205151615.sql
+            relativeToChangelogFile: true

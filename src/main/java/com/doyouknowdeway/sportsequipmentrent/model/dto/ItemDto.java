@@ -1,7 +1,7 @@
 package com.doyouknowdeway.sportsequipmentrent.model.dto;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Age;
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Season;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Age;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Season;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;

@@ -1,20 +1,25 @@
 package com.doyouknowdeway.sportsequipmentrent.model.dto;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.JwtTokenType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.JwtTokenType;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.*;
 
 @Getter
 @Builder
+@ToString
 @EqualsAndHashCode
 @AllArgsConstructor
+@JsonDeserialize(builder = JwtTokenDto.JwtTokenDtoBuilder.class)
 public class JwtTokenDto {
 
     private final String token;
     private final JwtTokenType type;
-    private final String login;
-    private final Boolean isDeleted;
+    private final String email;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class JwtTokenDtoBuilder {
+
+    }
 
 }

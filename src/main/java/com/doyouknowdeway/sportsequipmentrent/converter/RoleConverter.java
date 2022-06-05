@@ -1,6 +1,6 @@
 package com.doyouknowdeway.sportsequipmentrent.converter;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Role;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Role;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

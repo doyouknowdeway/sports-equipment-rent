@@ -1,52 +1,54 @@
 package com.doyouknowdeway.sportsequipmentrent.rest;
 
 import com.doyouknowdeway.sportsequipmentrent.model.dto.OrderDto;
-import com.doyouknowdeway.sportsequipmentrent.model.dto.create_dto.OrderCreateDto;
+import com.doyouknowdeway.sportsequipmentrent.model.dto.OrderCreateDto;
+import com.doyouknowdeway.sportsequipmentrent.model.dto.OrderUpdateStatusDto;
 import com.doyouknowdeway.sportsequipmentrent.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
 
-    public final OrderService service;
-
-    @Autowired
-    public OrderController(final OrderService service) {
-        this.service = service;
-    }
+    public final OrderService orderService;
 
     @PostMapping("/create")
     public OrderDto createOrder(@RequestBody final OrderCreateDto orderDto) {
-        return service.createOrder(orderDto);
+        return orderService.createOrder(orderDto);
     }
 
     @PutMapping("/{orderId}")
     public void updateOrder(@RequestBody final OrderCreateDto orderDto, @PathVariable final int orderId) {
-        service.updateOrder(orderDto, orderId);
+        orderService.updateOrder(orderDto, orderId);
+    }
+
+    @PutMapping("/{orderId}/status")
+    public void updateOrderStatus(@RequestBody final OrderUpdateStatusDto orderDto, @PathVariable final int orderId) {
+        orderService.updateOrderStatus(orderDto, orderId);
     }
 
     @GetMapping("/{orderId}")
     public OrderDto getOrderById(@PathVariable final int orderId) {
-        return service.getOrderById(orderId);
+        return orderService.getOrderById(orderId);
     }
 
     @DeleteMapping("/{orderId}")
     public void deleteOrderById(@PathVariable final int orderId) {
-        service.deleteOrderById(orderId);
+        orderService.deleteOrderById(orderId);
     }
 
     @GetMapping
     public List<OrderDto> getAllOrders() {
-        return service.getAllOrders();
+        return orderService.getAllOrders();
     }
 
     @PostMapping("/{orderId}/items/{itemId}")
     public void addItemToOrder(@PathVariable final int orderId, @PathVariable final int itemId) {
-        service.addItemToOrder(orderId, itemId);
+        orderService.addItemToOrder(orderId, itemId);
     }
 
 }

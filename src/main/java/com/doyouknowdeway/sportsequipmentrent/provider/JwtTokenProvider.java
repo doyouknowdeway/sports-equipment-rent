@@ -8,7 +8,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.UserDetailsDto;
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Role;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Role;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
-@Slf4j
 @Component
 public class JwtTokenProvider implements Serializable {
 
@@ -44,10 +43,10 @@ public class JwtTokenProvider implements Serializable {
         final Date accessExpiration = Date.from(accessExpirationInstant);
 
         return JWT.create()
-                .withIssuer("Dance Studio")
+                .withIssuer("Sports Equipment Rent")
                 .withIssuedAt(new Date())
                 .withSubject(userDetailsDto.getId().toString())
-                .withClaim("login", userDetailsDto.getLogin())
+                .withClaim("email", userDetailsDto.getEmail())
                 .withClaim("role", role.name())
                 .withExpiresAt(accessExpiration)
                 .sign(Algorithm.HMAC256(accessSecret));
@@ -61,23 +60,23 @@ public class JwtTokenProvider implements Serializable {
         final Date refreshExpiration = Date.from(refreshExpirationInstant);
 
         return JWT.create()
-                .withIssuer("Dance Studio")
+                .withIssuer("Sports Equipment Rent")
                 .withIssuedAt(new Date())
                 .withSubject(userDetailsDto.getId().toString())
-                .withClaim("login", userDetailsDto.getLogin())
+                .withClaim("email", userDetailsDto.getEmail())
                 .withExpiresAt(refreshExpiration)
                 .sign(Algorithm.HMAC256(refreshSecret));
     }
 
-    public String generateNewRefreshToken(final UserDetailsDto userDetailsDto, final String oldRefreshToken) {
+    public String updateIssuedAtOfRefreshToken(final UserDetailsDto userDetailsDto, final String oldRefreshToken) {
         final DecodedJWT jwt = JWT.decode(oldRefreshToken);
         final Date oldRefreshExpiration = jwt.getExpiresAt();
 
         return JWT.create()
-                .withIssuer("Dance Studio")
+                .withIssuer("Sports Equipment Rent")
                 .withIssuedAt(new Date())
                 .withSubject(userDetailsDto.getId().toString())
-                .withClaim("login", userDetailsDto.getLogin())
+                .withClaim("email", userDetailsDto.getEmail())
                 .withExpiresAt(oldRefreshExpiration)
                 .sign(Algorithm.HMAC256(refreshSecret));
     }
@@ -95,16 +94,14 @@ public class JwtTokenProvider implements Serializable {
             final JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
             verifier.verify(token);
             return true;
-        } catch (final TokenExpiredException exception) {
-            throw new TokenExpiredException(exception.getMessage());
         } catch (final JWTVerificationException exception) {
-            throw new JWTVerificationException("Token Invalid!!!");
+            return false;
         }
     }
 
-    public String getLogin(final String token) {
+    public String getEmail(final String token) {
         final DecodedJWT jwt = JWT.decode(token);
-        return jwt.getClaim("login").asString();
+        return jwt.getClaim("email").asString();
     }
 
 }
