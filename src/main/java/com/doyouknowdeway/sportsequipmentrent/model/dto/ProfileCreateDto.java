@@ -1,11 +1,16 @@
 package com.doyouknowdeway.sportsequipmentrent.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import lombok.*;
 
 @Getter
-@Setter
+@Builder
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonDeserialize(builder = ProfileCreateDto.ProfileCreateDtoBuilder.class)
 public class ProfileCreateDto extends UserCreateDto {
 
     @JsonProperty("first_name")
@@ -22,5 +27,10 @@ public class ProfileCreateDto extends UserCreateDto {
     private String email;
 
     private String password;
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class ProfileCreateDtoBuilder {
+
+    }
 
 }

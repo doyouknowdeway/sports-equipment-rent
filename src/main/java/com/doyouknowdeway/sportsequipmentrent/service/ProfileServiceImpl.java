@@ -6,6 +6,7 @@ import com.doyouknowdeway.sportsequipmentrent.mapper.ProfileMapper;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.OrderDto;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.ProfileCreateDto;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.ProfileDto;
+import com.doyouknowdeway.sportsequipmentrent.model.dto.UserDetailsDto;
 import com.doyouknowdeway.sportsequipmentrent.model.entity.OrderEntity;
 import com.doyouknowdeway.sportsequipmentrent.model.entity.ProfileEntity;
 import com.doyouknowdeway.sportsequipmentrent.repository.OrderRepository;
@@ -56,6 +57,21 @@ public class ProfileServiceImpl implements ProfileService {
                 () -> log.warn("Profile with id = {} hasn't been found.", profileId));
         return profileEntity.map(profileMapper::profileEntityToProfileDto)
                 .orElseThrow(() -> new EntityNotFoundException("Profile not found!"));
+    }
+
+    @Override
+    public UserDetailsDto getProfileByEmail(final String email) {
+        final Optional<ProfileEntity> profileEntity = profileRepository.findByEmail(email);
+        profileEntity.ifPresentOrElse(
+                (user) -> log.info("Profile with email = {} has been found.", email),
+                () -> log.warn("Profile with email = {} hasn't been found.", email));
+        return profileEntity.map(profileMapper::profileEntityToUserDetailsDto)
+                .orElseThrow(() -> new EntityNotFoundException("Profile not found!"));
+    }
+
+    @Override
+    public boolean existsByProfileEmail(final String email) {
+        return profileRepository.existsByEmail(email);
     }
 
     @Override
