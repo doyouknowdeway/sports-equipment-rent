@@ -28,7 +28,6 @@ import java.util.Optional;
 public class ProfileServiceImpl implements ProfileService {
 
     private final PasswordEncoder passwordEncoder;
-    private final AuthService authService;
     private final ProfileRepository profileRepository;
     private final ProfileMapper profileMapper;
     private final OrderRepository orderRepository;
