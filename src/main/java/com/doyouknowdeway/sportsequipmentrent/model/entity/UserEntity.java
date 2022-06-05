@@ -1,6 +1,5 @@
 package com.doyouknowdeway.sportsequipmentrent.model.entity;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +8,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
-@Table(name = "users", schema = "sportsequipmentrent")
+@Table(name = "users")
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class UserEntity {
@@ -21,6 +20,10 @@ public class UserEntity {
 
     @Column(name = "role_id")
     private Role role;
+
+    @Column(name = "provider")
+    @Enumerated(EnumType.STRING)
+    private Provider provider;
 
     @Column(name = "registration_datetime")
     private Instant registrationDatetime;

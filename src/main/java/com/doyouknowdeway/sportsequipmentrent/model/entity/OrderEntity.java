@@ -1,6 +1,5 @@
 package com.doyouknowdeway.sportsequipmentrent.model.entity;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,7 @@ import java.time.Instant;
 
 @Getter
 @Setter
-@Table(name = "orders", schema = "sportsequipmentrent")
+@Table(name = "orders")
 @Entity(name = "orders")
 public class OrderEntity {
 

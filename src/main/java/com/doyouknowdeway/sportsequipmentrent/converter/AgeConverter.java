@@ -1,6 +1,6 @@
 package com.doyouknowdeway.sportsequipmentrent.converter;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Age;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Age;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

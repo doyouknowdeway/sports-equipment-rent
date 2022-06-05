@@ -1,8 +1,9 @@
 package com.doyouknowdeway.sportsequipmentrent.repository;
 
 import com.doyouknowdeway.sportsequipmentrent.model.entity.ItemEntity;
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Age;
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Season;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Age;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Season;
+import lombok.NonNull;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 @Repository
 public interface ItemRepository extends JpaRepository<ItemEntity, Integer>, JpaSpecificationExecutor<ItemEntity> {
 
+    @NonNull
     @Override
     List<ItemEntity> findAll(Specification<ItemEntity> specification);
 

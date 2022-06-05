@@ -1,10 +1,12 @@
 package com.doyouknowdeway.sportsequipmentrent.model.dto;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Role;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Role;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,24 +14,25 @@ import java.util.Collection;
 import java.util.List;
 
 @Getter
-@Setter
+@Builder
 @EqualsAndHashCode
 @AllArgsConstructor
+@JsonDeserialize(builder = UserDetailsDto.UserDetailsDtoBuilder.class)
 public class UserDetailsDto implements UserDetails {
 
     private final Integer id;
-    private final String login;
+    private final String email;
     private final List<Role> roles;
     private final String password;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return getRoles();
     }
 
     @Override
     public String getUsername() {
-        return login;
+        return email;
     }
 
     @Override
@@ -50,6 +53,11 @@ public class UserDetailsDto implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @JsonPOJOBuilder(withPrefix = "")
+    public static class UserDetailsDtoBuilder {
+
     }
 
 }

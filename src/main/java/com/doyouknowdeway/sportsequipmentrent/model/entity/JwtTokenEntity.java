@@ -1,6 +1,5 @@
 package com.doyouknowdeway.sportsequipmentrent.model.entity;
 
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.JwtTokenType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,8 +10,8 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Table(name = "jwt_tokens")
 @Entity(name = "jwt_tokens")
-@Table(name = "jwt_tokens", schema = "sportsequipmentrent")
 public class JwtTokenEntity {
 
     @Id

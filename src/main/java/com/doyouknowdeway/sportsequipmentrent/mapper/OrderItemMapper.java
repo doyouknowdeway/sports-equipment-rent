@@ -10,6 +10,6 @@ public interface OrderItemMapper {
 
     @Mapping(target = "order.id", source = "orderId")
     @Mapping(target = "item.id", source = "itemId")
-    OrderItemEntity toEntity(OrderItemDto dto);
+    OrderItemEntity orderItemDtoToOrderItemEntity(OrderItemDto dto);
 
 }

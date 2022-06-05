@@ -1,10 +1,10 @@
 package com.doyouknowdeway.sportsequipmentrent.mapper;
 
+import com.doyouknowdeway.sportsequipmentrent.model.dto.ProfileCreateDto;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.ProfileDto;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.UserDetailsDto;
-import com.doyouknowdeway.sportsequipmentrent.model.dto.create_dto.ProfileCreateDto;
 import com.doyouknowdeway.sportsequipmentrent.model.entity.ProfileEntity;
-import com.doyouknowdeway.sportsequipmentrent.model.entity.enums.Role;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Role;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -27,8 +27,8 @@ public interface ProfileMapper {
         return List.of(role);
     }
 
-    void merge(@MappingTarget ProfileEntity entity, ProfileCreateDto dto);
+    void mergeProfileEntityToProfileCreateDto(@MappingTarget ProfileEntity entity, ProfileCreateDto dto);
 
-    List<ProfileDto> fromEntities(Iterable<ProfileEntity> entities);
+    List<ProfileDto> profileEntityToProfileDtoList(Iterable<ProfileEntity> entities);
 
 }

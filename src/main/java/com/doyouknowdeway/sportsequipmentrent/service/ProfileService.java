@@ -2,7 +2,7 @@ package com.doyouknowdeway.sportsequipmentrent.service;
 
 import com.doyouknowdeway.sportsequipmentrent.model.dto.OrderDto;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.ProfileDto;
-import com.doyouknowdeway.sportsequipmentrent.model.dto.create_dto.ProfileCreateDto;
+import com.doyouknowdeway.sportsequipmentrent.model.dto.ProfileCreateDto;
 
 import java.util.List;
 
