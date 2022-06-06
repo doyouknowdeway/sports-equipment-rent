@@ -50,3 +50,11 @@ databaseChangeLog:
         - sqlFile:
             path: PSER-001-202206052204.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: PSER-001-202206052245
+      author: EkaterinaSelivanova
+      comment: Add More Types To Season Column
+      changes:
+        - sqlFile:
+            path: PSER-001-202206052245.sql
+            relativeToChangelogFile: true

@@ -5,7 +5,11 @@ import java.util.Optional;
 public enum Season {
 
     WINTER(1),
-    SUMMER(2);
+    SUMMER(2),
+    SPRING(3),
+    AUTUMN(4),
+    WINTER_AUTUMN(5),
+    SPRING_SUMMER(6);
 
     private final int id;
 

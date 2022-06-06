@@ -8,8 +8,10 @@ import com.doyouknowdeway.sportsequipmentrent.model.dto.OrderDto;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.OrderItemDto;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.OrderUpdateStatusDto;
 import com.doyouknowdeway.sportsequipmentrent.model.entity.OrderEntity;
+import com.doyouknowdeway.sportsequipmentrent.repository.ItemRepository;
 import com.doyouknowdeway.sportsequipmentrent.repository.OrderItemRepository;
 import com.doyouknowdeway.sportsequipmentrent.repository.OrderRepository;
+import com.doyouknowdeway.sportsequipmentrent.repository.ProfileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ import java.util.Optional;
 @Service
 public class OrderServiceImpl implements OrderService {
 
+    private final ProfileRepository profileRepository;
+    private final ItemRepository itemRepository;
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final OrderItemRepository orderItemRepository;
@@ -29,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto createOrder(final OrderCreateDto orderDto) {
+        profileRepository.findById(orderDto.getProfileId()).orElseThrow(() -> new EntityNotFoundException("Profile not found!"));
         final OrderEntity orderEntity = orderMapper.orderCreateDtoToOrderEntity(orderDto);
         final OrderDto orderDtoResult = orderMapper.orderEntityToOrderDto(orderRepository.save(orderEntity));
         log.info("Order with id = {} has been created.", orderDtoResult.getId());
@@ -39,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrder(final OrderCreateDto orderDto, final int orderId) {
         final OrderEntity orderEntity = orderRepository.findById(orderId)
                 .orElseThrow(() -> new EntityNotFoundException("Order not found!"));
+        profileRepository.findById(orderDto.getProfileId()).orElseThrow(() -> new EntityNotFoundException("Profile not found!"));
         orderMapper.mergeOrderEntityAndOrderCreateDto(orderEntity, orderDto);
         orderRepository.save(orderEntity);
         log.info("Order with id = {} has been updated.", orderId);
@@ -85,9 +91,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void addItemToOrder(final int orderId, final int itemId) {
-        final OrderItemDto dto = new OrderItemDto();
-        dto.setOrderId(orderId);
-        dto.setItemId(itemId);
+        orderRepository.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException("Order not found!"));
+        itemRepository.findById(orderId)
+                .orElseThrow(() -> new EntityNotFoundException("Item not found!"));
+        final OrderItemDto dto = OrderItemDto.builder()
+                .orderId(orderId)
+                .itemId(itemId)
+                .build();
         orderItemRepository.save(orderItemMapper.orderItemDtoToOrderItemEntity(dto));
         log.info("Item with id = {} has been added to order with id = {}.", itemId, orderId);
     }

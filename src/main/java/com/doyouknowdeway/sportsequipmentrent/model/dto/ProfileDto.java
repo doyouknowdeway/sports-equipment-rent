@@ -8,8 +8,6 @@ import lombok.Setter;
 @Setter
 public class ProfileDto extends UserDto {
 
-    private Integer id;
-
     @JsonProperty("first_name")
     private String firstName;
 

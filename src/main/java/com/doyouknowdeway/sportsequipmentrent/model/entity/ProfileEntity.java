@@ -1,7 +1,7 @@
 package com.doyouknowdeway.sportsequipmentrent.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,10 @@ import javax.persistence.Table;
 
 @Getter
 @Setter
+@ToString
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "profiles")
 @Entity(name = "profiles")
 public class ProfileEntity extends UserEntity {

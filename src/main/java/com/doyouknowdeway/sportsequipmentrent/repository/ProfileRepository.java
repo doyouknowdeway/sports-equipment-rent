@@ -10,9 +10,9 @@ import java.util.Optional;
 @Repository
 public interface ProfileRepository extends JpaRepository<ProfileEntity, Integer>, JpaSpecificationExecutor<ProfileEntity> {
 
-    Optional<ProfileEntity> findByLogin(String login);
-
     Optional<ProfileEntity> findByEmail(String email);
+
+    boolean existsByLogin(String login);
 
     boolean existsByEmail(String email);
 

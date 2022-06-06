@@ -13,7 +13,6 @@ spring:
   liquibase:
     change-log: classpath:db.migration.v1/changelog.yaml
   jpa:
-    open-in-view: on
     hibernate:
       ddl-auto: validate
     show-sql: true

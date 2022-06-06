@@ -4,6 +4,7 @@ import com.doyouknowdeway.sportsequipmentrent.exception.EntityCreationException;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.JwtTokenDto;
 import com.doyouknowdeway.sportsequipmentrent.model.dto.UserDetailsDto;
 import com.doyouknowdeway.sportsequipmentrent.model.entity.JwtTokenType;
+import com.doyouknowdeway.sportsequipmentrent.model.entity.Role;
 import com.doyouknowdeway.sportsequipmentrent.model.response.JwtResponse;
 import com.doyouknowdeway.sportsequipmentrent.model.response.LoginResponse;
 import com.doyouknowdeway.sportsequipmentrent.provider.JwtTokenProvider;
@@ -24,11 +25,12 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public LoginResponse login(final UserDetailsDto userDetailsDto) {
         final String email = userDetailsDto.getEmail();
+        final Role role = userDetailsDto.getRoles().stream().findFirst().orElse(Role.USER);
         if (jwtTokenService.existsByUserEmail(email)) {
-            final String accessToken = jwtTokenService.getJwtTokenByEmail(email, JwtTokenType.ACCESS);
-            final String refreshToken = jwtTokenService.getJwtTokenByEmail(email, JwtTokenType.REFRESH);
+            final String accessToken = jwtTokenService.getJwtTokenByEmailAndType(email, JwtTokenType.ACCESS);
+            final String refreshToken = jwtTokenService.getJwtTokenByEmailAndType(email, JwtTokenType.REFRESH);
             log.info("User with email = {} has been logged in with pre-existing tokens.", email);
-            return new LoginResponse(accessToken, refreshToken);
+            return new LoginResponse(email, role, accessToken, refreshToken);
         }
 
         final String accessToken = jwtTokenProvider.generateAccessToken(userDetailsDto);
@@ -48,7 +50,7 @@ public class AuthServiceImpl implements AuthService {
         jwtTokenService.createJwtToken(jwtAccessTokenDto);
         jwtTokenService.createJwtToken(jwtRefreshTokenDto);
         log.info("User with email = {} has been logged in with new tokens.", email);
-        return new LoginResponse(accessToken, refreshToken);
+        return new LoginResponse(email, role, accessToken, refreshToken);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class AuthServiceImpl implements AuthService {
             throw new EntityCreationException("Refresh token is invalid. Can't create new access token.");
         }
 
-        final String refreshTokenFromDB = jwtTokenService.getJwtTokenByEmail(email, JwtTokenType.REFRESH);
+        final String refreshTokenFromDB = jwtTokenService.getJwtTokenByEmailAndType(email, JwtTokenType.REFRESH);
         if (!refreshTokenFromDB.equals(refreshToken)) {
             log.warn("Token with type = {} email = {} not equal to existed token in DB.", email, JwtTokenType.REFRESH);
             throw new EntityCreationException("Refresh token is invalid. Can't create new access token.");

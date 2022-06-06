@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @AllArgsConstructor
 @RestController
 public class MainController {
@@ -24,7 +26,7 @@ public class MainController {
     protected AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
-    public LoginResponse createProfile(@RequestBody final ProfileCreateDto profileDto) {
+    public LoginResponse createProfile(@RequestBody @Valid final ProfileCreateDto profileDto) {
         profileService.createProfile(profileDto);
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(profileDto.getEmail(), profileDto.getPassword()));

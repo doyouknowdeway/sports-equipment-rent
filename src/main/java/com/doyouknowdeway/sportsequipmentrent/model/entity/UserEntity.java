@@ -1,13 +1,17 @@
 package com.doyouknowdeway.sportsequipmentrent.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.Instant;
 
 @Getter
 @Setter
+@ToString
+@SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "users")
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -16,16 +20,16 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Integer id;
+    protected Integer id;
 
     @Column(name = "role_id")
-    private Role role;
+    protected Role role;
 
     @Column(name = "provider")
     @Enumerated(EnumType.STRING)
-    private Provider provider;
+    protected Provider provider;
 
     @Column(name = "registration_datetime")
-    private Instant registrationDatetime;
+    protected Instant registrationDatetime;
 
 }

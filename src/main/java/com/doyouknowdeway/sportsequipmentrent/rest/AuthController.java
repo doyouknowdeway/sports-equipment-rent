@@ -15,12 +15,14 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.security.auth.message.AuthException;
+import javax.validation.Valid;
 import java.net.URI;
 
 @AllArgsConstructor
@@ -35,7 +37,7 @@ public class AuthController {
     protected AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody final LoginRequest loginRequest) {
+    public ResponseEntity<LoginResponse> login(@RequestBody @Valid final LoginRequest loginRequest) {
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
         securityContextFacade.getContext().setAuthentication(authentication);
@@ -78,11 +80,12 @@ public class AuthController {
     }
 
     @PostMapping("/newAccessToken")
-    public ResponseEntity<JwtResponse> getNewAccessToken(@RequestBody final JwtRequest jwtRequest) throws AuthException {
+    public ResponseEntity<JwtResponse> getNewAccessToken(@RequestBody @Valid final JwtRequest jwtRequest) throws AuthException {
         final JwtResponse jwtResponse = authService.getNewAccessToken(jwtRequest.getRefreshToken());
         return new ResponseEntity<>(jwtResponse, HttpStatus.CREATED);
     }
 
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @PostMapping("/logout")
     public ResponseEntity<String> logout() {
         final String email = (String) securityContextFacade.getContext().getAuthentication().getPrincipal();

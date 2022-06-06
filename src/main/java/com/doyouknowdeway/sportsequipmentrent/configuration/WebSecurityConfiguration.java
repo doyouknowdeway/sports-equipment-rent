@@ -7,9 +7,9 @@ import com.doyouknowdeway.sportsequipmentrent.service.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -25,6 +25,7 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenFilter jwtTokenFilter;
@@ -56,21 +57,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .cors().and().csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/login", "/oauth/**", "/register").permitAll()
 
-                .antMatchers("/items", "/items/filtered").not().authenticated()
-                .antMatchers("/items/**").hasRole("ADMIN")
-                .antMatchers("/orders/create").not().authenticated()
-                .antMatchers("/orders/{orderId}").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.GET, "/orders").hasRole("ADMIN")
-                .antMatchers("/profiles").hasRole("ADMIN")
-                .antMatchers("/profiles/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers().hasAnyRole("USER", "ADMIN")
-
-                .anyRequest().not().authenticated()
-
-                .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(
                         (request, response, authException) -> response.sendError(
@@ -82,7 +69,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
                 .headers()
                 .cacheControl();
-
     }
 
 }

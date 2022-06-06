@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.lang.NonNull;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -37,12 +38,23 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(apiErrorDto, HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(value = AccessDeniedException.class)
+    public ResponseEntity<ApiErrorDto> accessException(final AccessDeniedException accessDeniedException) {
+        final ApiErrorDto apiErrorDto = ApiErrorDto.builder()
+                .status(String.valueOf(HttpStatus.FORBIDDEN.value()))
+                .error(HttpStatus.FORBIDDEN.getReasonPhrase())
+                .messages(List.of(accessDeniedException.getMessage()))
+                .build();
+        log.error(accessDeniedException.getMessage(), accessDeniedException);
+        return new ResponseEntity<>(apiErrorDto, HttpStatus.FORBIDDEN);
+    }
+
     @ExceptionHandler(value = EntityCreationException.class)
     public ResponseEntity<ApiErrorDto> badRequestException(final RuntimeException runtimeException) {
         final ApiErrorDto apiErrorDto = ApiErrorDto.builder()
                 .status(String.valueOf(HttpStatus.BAD_REQUEST.value()))
                 .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
-                .messages(List.of(runtimeException.getMessage()))
+                .messages(List.of("Access denied!"))
                 .build();
         log.error(runtimeException.getMessage(), runtimeException);
         return new ResponseEntity<>(apiErrorDto, HttpStatus.BAD_REQUEST);
