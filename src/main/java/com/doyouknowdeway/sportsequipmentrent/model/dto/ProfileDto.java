@@ -1,11 +1,15 @@
 package com.doyouknowdeway.sportsequipmentrent.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
-@Setter
+@ToString
+@SuperBuilder
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProfileDto extends UserDto {
 
     @JsonProperty("first_name")

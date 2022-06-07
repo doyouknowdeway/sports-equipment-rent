@@ -1,13 +1,16 @@
 package com.doyouknowdeway.sportsequipmentrent.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Getter
 @Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "items")
 @Entity(name = "items")
 public class ItemEntity {

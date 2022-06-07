@@ -21,8 +21,8 @@ public interface ProfileService {
 
     void deleteProfileById(int profileId);
 
-    List<ProfileDto> getAllProfiles();
+    List<ProfileDto> listProfiles();
 
-    List<OrderDto> getProfileOrders(int profileId);
+    List<OrderDto> listProfileOrders(int profileId);
 
 }

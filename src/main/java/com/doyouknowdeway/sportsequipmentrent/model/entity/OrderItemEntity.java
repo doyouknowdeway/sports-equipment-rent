@@ -1,12 +1,15 @@
 package com.doyouknowdeway.sportsequipmentrent.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "order_items")
 @Entity(name = "order_items")
 public class OrderItemEntity {

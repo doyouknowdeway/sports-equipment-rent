@@ -1,7 +1,6 @@
 package com.doyouknowdeway.sportsequipmentrent.model.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -9,6 +8,10 @@ import java.time.Instant;
 
 @Getter
 @Setter
+@ToString
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Table(name = "orders")
 @Entity(name = "orders")
 public class OrderEntity {

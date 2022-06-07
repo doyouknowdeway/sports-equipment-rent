@@ -9,6 +9,7 @@ import lombok.*;
 @Getter
 @Builder
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonDeserialize(builder = OrderUpdateStatusDto.OrderUpdateStatusDtoBuilder.class)

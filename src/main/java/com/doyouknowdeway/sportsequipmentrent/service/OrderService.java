@@ -18,7 +18,7 @@ public interface OrderService {
 
     void deleteOrderById(int orderId);
 
-    List<OrderDto> getAllOrders();
+    List<OrderDto> listOrders();
 
     void addItemToOrder(int orderId, int itemId);
 

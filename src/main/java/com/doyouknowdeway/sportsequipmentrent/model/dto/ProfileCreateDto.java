@@ -15,6 +15,7 @@ import javax.validation.constraints.Pattern;
 @Getter
 @Builder
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonDeserialize(builder = ProfileCreateDto.ProfileCreateDtoBuilder.class)

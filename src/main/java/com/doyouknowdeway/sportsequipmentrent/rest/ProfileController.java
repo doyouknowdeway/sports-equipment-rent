@@ -39,13 +39,13 @@ public class ProfileController {
     @Secured("ROLE_ADMIN")
     @GetMapping
     public List<ProfileDto> getAllProfiles() {
-        return profileService.getAllProfiles();
+        return profileService.listProfiles();
     }
 
     @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/{profileId}/orders")
     public List<OrderDto> getAllProfileOrders(@PathVariable final int profileId) {
-        return profileService.getProfileOrders(profileId);
+        return profileService.listProfileOrders(profileId);
     }
 
 }

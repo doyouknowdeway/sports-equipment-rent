@@ -2,13 +2,17 @@ package com.doyouknowdeway.sportsequipmentrent.model.dto;
 
 import com.doyouknowdeway.sportsequipmentrent.model.entity.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
 
 @Getter
-@Setter
+@ToString
+@SuperBuilder
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
 
     private Integer id;

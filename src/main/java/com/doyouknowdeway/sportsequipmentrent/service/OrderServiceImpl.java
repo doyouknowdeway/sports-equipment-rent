@@ -33,7 +33,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderDto createOrder(final OrderCreateDto orderDto) {
-        profileRepository.findById(orderDto.getProfileId()).orElseThrow(() -> new EntityNotFoundException("Profile not found!"));
+        profileRepository.findById(orderDto.getProfileId())
+                .orElseThrow(() -> new EntityNotFoundException("Profile not found!"));
         final OrderEntity orderEntity = orderMapper.orderCreateDtoToOrderEntity(orderDto);
         final OrderDto orderDtoResult = orderMapper.orderEntityToOrderDto(orderRepository.save(orderEntity));
         log.info("Order with id = {} has been created.", orderDtoResult.getId());
@@ -44,7 +45,8 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrder(final OrderCreateDto orderDto, final int orderId) {
         final OrderEntity orderEntity = orderRepository.findById(orderId)
                 .orElseThrow(() -> new EntityNotFoundException("Order not found!"));
-        profileRepository.findById(orderDto.getProfileId()).orElseThrow(() -> new EntityNotFoundException("Profile not found!"));
+        profileRepository.findById(orderDto.getProfileId())
+                .orElseThrow(() -> new EntityNotFoundException("Profile not found!"));
         orderMapper.mergeOrderEntityAndOrderCreateDto(orderEntity, orderDto);
         orderRepository.save(orderEntity);
         log.info("Order with id = {} has been updated.", orderId);
@@ -83,7 +85,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDto> getAllOrders() {
+    public List<OrderDto> listOrders() {
         final List<OrderEntity> orderEntities = orderRepository.findAll();
         log.info("There have been found {} orders.", orderEntities.size());
         return orderMapper.orderEntitiesToOrderDtoList(orderEntities);
@@ -93,7 +95,7 @@ public class OrderServiceImpl implements OrderService {
     public void addItemToOrder(final int orderId, final int itemId) {
         orderRepository.findById(orderId)
                 .orElseThrow(() -> new EntityNotFoundException("Order not found!"));
-        itemRepository.findById(orderId)
+        itemRepository.findById(itemId)
                 .orElseThrow(() -> new EntityNotFoundException("Item not found!"));
         final OrderItemDto dto = OrderItemDto.builder()
                 .orderId(orderId)

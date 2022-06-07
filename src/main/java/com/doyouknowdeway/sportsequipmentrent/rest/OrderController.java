@@ -51,7 +51,7 @@ public class OrderController {
     @Secured("ROLE_ADMIN")
     @GetMapping
     public List<OrderDto> getAllOrders() {
-        return orderService.getAllOrders();
+        return orderService.listOrders();
     }
 
     @Secured({"ROLE_USER", "ROLE_ADMIN"})

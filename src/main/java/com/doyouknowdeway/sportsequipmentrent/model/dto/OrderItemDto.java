@@ -11,6 +11,7 @@ import javax.validation.constraints.Positive;
 @Getter
 @Builder
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonDeserialize(builder = OrderItemDto.OrderItemDtoBuilder.class)

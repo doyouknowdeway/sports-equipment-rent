@@ -2,13 +2,15 @@ package com.doyouknowdeway.sportsequipmentrent.model.dto;
 
 import com.doyouknowdeway.sportsequipmentrent.model.entity.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 
 @Getter
-@Setter
+@Builder
+@ToString
+@EqualsAndHashCode
+@AllArgsConstructor
 public class OrderDto {
 
     private Integer id;

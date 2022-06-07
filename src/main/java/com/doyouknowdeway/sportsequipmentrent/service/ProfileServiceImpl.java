@@ -94,14 +94,14 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public List<ProfileDto> getAllProfiles() {
+    public List<ProfileDto> listProfiles() {
         final List<ProfileEntity> profileEntities = profileRepository.findAll();
         log.info("There have been found {} profiles.", profileEntities.size());
-        return profileMapper.profileEntityToProfileDtoList(profileEntities);
+        return profileMapper.profileEntitiesToProfileDtoList(profileEntities);
     }
 
     @Override
-    public List<OrderDto> getProfileOrders(final int profileId) {
+    public List<OrderDto> listProfileOrders(final int profileId) {
         profileRepository.findById(profileId).orElseThrow(() -> new EntityNotFoundException("Profile not found!"));
         final List<OrderEntity> orderEntities = orderRepository.findAllByProfileId(profileId);
         log.info("There have been found {} orders for user with id = {}.", orderEntities.size(), profileId);

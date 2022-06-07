@@ -29,6 +29,6 @@ public interface ProfileMapper {
 
     void mergeProfileEntityToProfileCreateDto(@MappingTarget ProfileEntity entity, ProfileCreateDto dto);
 
-    List<ProfileDto> profileEntityToProfileDtoList(Iterable<ProfileEntity> entities);
+    List<ProfileDto> profileEntitiesToProfileDtoList(Iterable<ProfileEntity> entities);
 
 }
