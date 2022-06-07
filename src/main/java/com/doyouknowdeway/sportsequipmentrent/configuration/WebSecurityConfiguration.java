@@ -56,8 +56,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .cors().and().csrf().disable()
-
+                .cors()
+                .and()
+                .csrf()
+                .and()
                 .exceptionHandling()
                 .authenticationEntryPoint(
                         (request, response, authException) -> response.sendError(

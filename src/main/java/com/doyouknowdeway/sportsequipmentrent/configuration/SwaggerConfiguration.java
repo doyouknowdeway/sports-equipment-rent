@@ -16,12 +16,12 @@ public class SwaggerConfiguration {
 //    http://localhost:8080/swagger-ui/
 //    http://localhost:8080/swagger-ui/index.html
 //    http://localhost:8080/v2/api-docs
-//    host: sport-equipment-rent.herokuapp.com
 
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
+                .host("sport-equipment-rent.herokuapp.com")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.doyouknowdeway.sportsequipmentrent.rest"))
                 .paths(PathSelectors.any())
