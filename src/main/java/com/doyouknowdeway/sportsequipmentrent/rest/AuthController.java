@@ -25,6 +25,7 @@ import javax.security.auth.message.AuthException;
 import javax.validation.Valid;
 import java.net.URI;
 
+@CrossOrigin
 @AllArgsConstructor
 @RestController
 @RequestMapping
